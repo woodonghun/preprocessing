@@ -47,7 +47,7 @@ wb = openpyxl.Workbook()
 wb.save(r'C:\woo_project\landmark_name/group_num_name.xlsx')
 wb = openpyxl.load_workbook(r'C:\woo_project\landmark_name/group_num_name.xlsx')
 ws = wb['Sheet']
-row = 4
+row = 4    # 시작 row
 
 landmark_name = []    # 작성된 landmark list
 x = []    # 판별 리스트
@@ -82,9 +82,9 @@ for i in overlap_name:
                 ws.cell(j, k+1).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
                 ws.cell(j, k+5).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
 
-ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=3)  # 셀 병합
+ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=3)    # 셀 병합
 ws.merge_cells(start_row=3, start_column=5, end_row=3, end_column=7)
-ws.cell(row=3, column=1).font = Font(bold=True)
+ws.cell(row=3, column=1).font = Font(bold=True)    # 텍스트 굵기
 ws.cell(row=3, column=5).font = Font(bold=True)
 ws.column_dimensions['A'].width = 20
 ws.column_dimensions['E'].width = 20
