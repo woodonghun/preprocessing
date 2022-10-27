@@ -4,19 +4,26 @@ import openpyxl
 # json 파일 오픈, key,value 나눔
 from openpyxl.styles import Border, borders, PatternFill, Font, Alignment
 
-with open("C:/Users/3DONS/Desktop/PreShin/20211007/group_points_preShin.json", "r") as file:
+json_loc = r"C:\Users\3DONS\Desktop\grouping_json\on3d-on3ds-on3d\temp_group_points_preShin.json"  # 변환?정리? 할 json 파일 경로
+on3d_xlsx = r'C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_220906(foramen 추가).xlsx'  # on3d landmark 파일 경로
+on3ds_xlsx = r'C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_ON3D_S_220906(foramen 추가).xlsx'  # on3ds landmark 파일 경로
+arrange_xlsx = r'C:\woo_project\landmark_name/group_num_name.xlsx'  # 저장할 xlsx 경로, 이름
+delete_group = ['TMJ_1', 'TMJ_2', 'TMJ_3', 'Cranial_Base']  # 제거 할 landmark group name
+
+''' 랜드마크 xlsx 은 landmark 가 적혀 있는 표를 제외 하고 전부 삭제 해야 한다.'''
+
+with open(json_loc, "r") as file:  # 변환할 json 파일
     data = json.load(file)
 
 on3d_landmark_num = list(data.values())
 on3d_landmark_name = []
 on3d_group_name = list(data.keys())
-delete_group = ['TMJ_1', 'TMJ_2', 'TMJ_3', 'Cranial_Base']
 
 on3d = {}
 on3d_s = {}
 
 # 기존 엑셀 open
-wb = openpyxl.load_workbook(filename="C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_220906(foramen 추가).xlsx")
+wb = openpyxl.load_workbook(filename=on3d_xlsx)
 ws = wb['Landmark']
 
 # 기존 엑셀 데이터 번호와 json 번호 비교 후
@@ -32,7 +39,7 @@ for i in range(len(on3d_landmark_num)):
 wb.close()
 
 # s용 엑셀 open
-wb = openpyxl.load_workbook(filename="C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_ON3D_S_220906(foramen 추가).xlsx")
+wb = openpyxl.load_workbook(filename=on3ds_xlsx)
 ws_2 = wb['Landmark']
 
 # 위에서 바꾼 value 값과 비교 후 번호 대입
@@ -44,14 +51,14 @@ for key, value in on3d.items():
             pass
 
 wb = openpyxl.Workbook()
-wb.save(r'C:\woo_project\landmark_name/group_num_name.xlsx')
-wb = openpyxl.load_workbook(r'C:\woo_project\landmark_name/group_num_name.xlsx')
+wb.save(arrange_xlsx)
+wb = openpyxl.load_workbook(arrange_xlsx)
 ws = wb['Sheet']
-row = 4    # 시작 row
+row = 4  # 시작 row
 
-landmark_name = []    # 작성된 landmark list
-x = []    # 판별 리스트
-overlap_name = []    # 중복된 번호
+landmark_name = []  # 작성된 landmark list
+x = []  # 판별 리스트
+overlap_name = []  # 중복된 번호
 
 for i in range(len(on3d_landmark_num)):  # xlsx 에 데이터 입력
     for j in range(len(on3d_landmark_num[i])):
@@ -73,18 +80,18 @@ for k in landmark_name:
         x.append(k)
     else:
         if k not in overlap_name:
-            overlap_name.append(k)
+            overlap_name.append(k)    # 중복 값 append
 
-for i in overlap_name:
-    for j in range(4,ws.max_row + 1):
-        if i == ws.cell(j,3).value:
+for i in overlap_name:  # 중복 요소에 색상 입력
+    for j in range(4, ws.max_row + 1):
+        if i == ws.cell(j, 3).value:
             for k in range(3):
-                ws.cell(j, k+1).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
-                ws.cell(j, k+5).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
+                ws.cell(j, k + 1).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
+                ws.cell(j, k + 5).fill = PatternFill(start_color='ffffb3', end_color='ffffb3', fill_type='solid')
 
-ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=3)    # 셀 병합
+ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=3)  # 셀 병합
 ws.merge_cells(start_row=3, start_column=5, end_row=3, end_column=7)
-ws.cell(row=3, column=1).font = Font(bold=True)    # 텍스트 굵기
+ws.cell(row=3, column=1).font = Font(bold=True)  # 텍스트 굵게
 ws.cell(row=3, column=5).font = Font(bold=True)
 ws.column_dimensions['A'].width = 20
 ws.column_dimensions['E'].width = 20
@@ -93,7 +100,7 @@ ws.column_dimensions['G'].width = 25
 
 for i in range(3, ws.max_row + 1):
     for j in range(3):
-        ws.cell(i, j + 1).border = Border(left=borders.Side(style='thin'),    # 테두리
+        ws.cell(i, j + 1).border = Border(left=borders.Side(style='thin'),  # 테두리
                                           right=borders.Side(style='thin'),
                                           top=borders.Side(style='thin'),
                                           bottom=borders.Side(style='thin'))
@@ -101,10 +108,10 @@ for i in range(3, ws.max_row + 1):
                                           right=borders.Side(style='thin'),
                                           top=borders.Side(style='thin'),
                                           bottom=borders.Side(style='thin'))
-        ws.cell(i, j + 1).alignment = Alignment(horizontal='center', vertical='center')    # 가운데 정렬
+        ws.cell(i, j + 1).alignment = Alignment(horizontal='center', vertical='center')  # 가운데 정렬
         ws.cell(i, j + 5).alignment = Alignment(horizontal='center', vertical='center')
 
-ws['A3'] = 'on3d_s group번호, train용'
-ws['E3'] = 'on3d_s group 번호를 on3d로 변환한 group 번호, exporter용'
+ws['A3'] = 'on3d_s group 번호, train 용'
+ws['E3'] = 'on3d_s group 번호를 on3d로 변환한 group 번호, exporter 용'
 
 wb.save(r'C:\woo_project\preprocessing/group_num_name.xlsx')

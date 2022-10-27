@@ -15,8 +15,7 @@ drive_loc = 'C:'    # 드라이브 위치
 change_mode = 'python train.py'    # train2.exe, python train.py 실행 하는 모드 python-exe
 create_batch_folder_loc = 'C:/Users/3DONS/Desktop/temp_batch_on3ds'    # 배치 파일 생성 경로
 python_path = 'C:/Users/3DONS/Desktop/PreShin/20211007'    # 파이썬 경로
-# json 파일 경로, ( batch 파일을 적절하게 생성하기 위해서 필요)
-on3d_s_group_json = 'C:/Users/3DONS/Desktop/on3ds_group_points.json'
+on3d_s_group_json = 'C:/Users/3DONS/Desktop/on3ds_group_points.json'    # json 파일 경로, ( batch 파일을 적절하게 생성하기 위해서 필요)
 train_log_path = 'C:/Users/3DONS/Desktop'    # 로그 경로
 activate_env = 'tempallpk'    # 활성화 시킬 가상 환경
 
@@ -68,14 +67,14 @@ def cuda(drive_loc: str, change_mode: str, activate_env: str, cuda_number: int, 
     return group_count, point_count, count, rest_train    # 결과 값을 넘겨 다음 cuda 에서 이어서 작업 하도록 함.
 
 
-with open(f"{on3d_s_group_json}", "r") as file:    # on3d_s group 랜드마크
+with open(f"{on3d_s_group_json}", "r") as file:    # on3d_s group 랜드마크, json 파일 읽기
     data = json.load(file)
 
 group_points = list(data.values())
 group_name = list(data.keys())
 group_points_sum = []
 
-for j in range(len(group_points)):
+for j in range(len(group_points)):    # landmark point 나열
     group_points_sum.append(' '.join(str(s) for s in group_points[j]))
 
 points = sum(group_points, [])    # 2중 리스트 하나로 합침

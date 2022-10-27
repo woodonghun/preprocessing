@@ -6,10 +6,10 @@ xlsx_loc = 'C:/Users/3DONS/Desktop/group_num_name_update04.xlsx'    # on3d, on3d
 landmark_loc = r'C:\Users\3DONS\Desktop\aaa\landmarks'    # landmark 가 저장된 폴더
 on3d_s_landmark_loc = r'C:\Users\3DONS\Desktop\aaa'    # 새로운 landmark 를 저장할 폴더
 
-os.mkdir(f'{on3d_s_landmark_loc}/landmarks_on3d_s')
+os.mkdir(f'{on3d_s_landmark_loc}/landmarks_on3d_s')    # 폴더 생성
 os.mkdir(f'{on3d_s_landmark_loc}/landmarks_on3d_s_total')
 
-file_list = os.listdir(landmark_loc)    # landmark txt 파일 리스트
+file_list = os.listdir(landmark_loc)    # landmark 폴더의 txt 파일 리스트
 
 wb = openpyxl.load_workbook(xlsx_loc)
 ws = wb['정리']
