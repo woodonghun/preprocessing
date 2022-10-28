@@ -8,10 +8,10 @@ create_json_loc = 'C:/Users/3DONS/Desktop/1'  # 생성할 json 파일 폴더 경
 
 def make_json(landmark_dict: dict, loc: str):  # json 파일 생성
     with open(loc, 'w') as outfile:
-        json.dump(landmark_dict, outfile)
+        json.dump(landmark_dict, outfile, indent=1)
 
 
-def open_xlsx(loc: str, sheet_name: str):    # sheet_name : 시트이름 입력
+def open_xlsx(loc: str, sheet_name: str):    # sheet_name : 시트 이름 입력
     wb = openpyxl.load_workbook(loc)
     ws = wb[sheet_name]
 

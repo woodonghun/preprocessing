@@ -93,12 +93,12 @@ ws.merge_cells(start_row=3, start_column=1, end_row=3, end_column=3)  # 셀 병�
 ws.merge_cells(start_row=3, start_column=5, end_row=3, end_column=7)
 ws.cell(row=3, column=1).font = Font(bold=True)  # 텍스트 굵게
 ws.cell(row=3, column=5).font = Font(bold=True)
-ws.column_dimensions['A'].width = 20
+ws.column_dimensions['A'].width = 20    # 셀 사이즈
 ws.column_dimensions['E'].width = 20
 ws.column_dimensions['C'].width = 25
 ws.column_dimensions['G'].width = 25
 
-for i in range(3, ws.max_row + 1):
+for i in range(3, ws.max_row + 1):    # 시작 부터 마지막
     for j in range(3):
         ws.cell(i, j + 1).border = Border(left=borders.Side(style='thin'),  # 테두리
                                           right=borders.Side(style='thin'),
