@@ -1,3 +1,4 @@
+
 import json
 import math
 import os
@@ -26,26 +27,26 @@ activate_env = 'tempallpk'  # 활성화 시킬 가상 환경
 # 드라이브, py or exe, 가상 환경, 쿠다 번호, 쿠다 메모리 량, group point, group name, point, count, group count, point count, rest train
 def cuda(drive: str, mode: str, env: str, cuda_num: int, cuda_memory: int, g_points: list, g_name: list, points: list, count: int, g_count: int, p_count: int,
          r_train: int):
-    batch_train = total_train // sum_value  # 배치 하나당 train 할 개수
+    bat_train = total_train // sum_value  # 배치 하나당 train 할 개수
 
-    for i in range(cuda_memory // use_memory):  # cuda 에서 돌릴수 있는 병렬 학습 개수
+    for q in range(cuda_memory // use_memory):  # cuda 에서 돌릴수 있는 병렬 학습 개수
         if r_train == 0:
-            batch_train = total_train // sum_value
+            bat_train = total_train // sum_value
         elif r_train != 0:
             # train 개수가 batch 파일 개수에 맞춰 항상 딱 떨어지지 않음
             # train 개수를 한개씩 늘려서 제작후 다시 하나씩 빼는 형식으로
-            batch_train = total_train // sum_value + 1
+            bat_train = total_train // sum_value + 1
             r_train -= 1
-        with open(f"{create_batch_folder_loc}/cuda{cuda_num}/{i}_cuda_{cuda_num}.bat", 'a') as f:
+        with open(f"{create_batch_folder_loc}/cuda{cuda_num}/{q}_cuda_{cuda_num}.bat", 'a') as f:
             f.write(f'{drive}\n')
             f.write(f"cd {python_path}\n")
             f.write(f"call conda activate {env}\n")
             train_count = 0
-            for j in range(batch_train):
+            for w in range(bat_train):
 
                 for n in range(len(seed_list)):
 
-                    if train_count == batch_train:  # 학습 개수 확인, batch 에 학습해야할 개수와 비교해서 같으면 break
+                    if train_count == bat_train:  # 학습 개수 확인, batch 에 학습해야할 개수와 비교해서 같으면 break
                         break
                     if count == n:
                         if len(g_name) <= g_count/len(seed_list):  # 그룹 개수 초과 할때 point 시작
@@ -66,7 +67,7 @@ def cuda(drive: str, mode: str, env: str, cuda_num: int, cuda_memory: int, g_poi
                             count += 1
                         train_count += 1
 
-                if train_count == batch_train:
+                if train_count == bat_train:
                     break
             f.write("pause")
 
