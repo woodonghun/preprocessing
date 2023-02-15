@@ -18,7 +18,7 @@ use_gpu_memory = 2  # predict 할때 사용 하는 gpu 메모리
 use_ram_memory = 2  # predict 할때 사용 하는 gpu 메모리
 
 mha_root = r'D:/538ons_vol_temp/export_volume_template/input'  # 추론 할 image 폴더가 모여 있는 폴더 경로
-batch_loc = 'C:/Users/3DONS/Desktop/1test'  # batch 파일을 생성할 폴더 경로
+batch_loc = r'C:\Users\3DONS\Desktop\temp_preshin'  # batch 파일을 생성할 폴더 경로
 
 batch_folder_name = 'predict_batch'  # 배치 파일이 들어갈 폴더 이름
 batch_file_name = 'temp'  # 배치 파일 명
