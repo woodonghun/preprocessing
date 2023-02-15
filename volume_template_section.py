@@ -2,12 +2,15 @@ import pandas as pd
 import os
 import re
 
-# volume template label data 를 구간 별로 개수를 xlsx 로 출력 하는 코드
+''' 
+    volume template label data 를 구간 별 개수를 나누어 xlsx 로 출력 하는 코드 
+    data 범위를 0~127로 맞추기 위해 hts-128, sts-256 적용
+'''
 
-volume_template_label_root = r'D:\Volume Template\volume_template 성능측정\label'  # 정답 데이터 루트
-xlsx_root = r'D:\Volume Template\temp'  # xlsx 생성 root
-xlsx_name = r'result.xlsx'  # 엑셀 명 .xlsx 붙여야함
-label_range = 12  # 나눌 구간 개수
+volume_template_label_root = r'D:\Volume Template\AUG_ON3DS_VT\valid'  # 정답 데이터 루트
+xlsx_root = r'D:\Volume Template\AUG_ON3DS_VT'  # xlsx 생성 root
+xlsx_name = r'valid.xlsx'  # 엑셀 명 .xlsx 붙여야함
+label_range = 16  # 구간의 개수
 
 id_list = os.listdir(volume_template_label_root)  # id list
 column = ['air', 'hts', 'sts']
@@ -35,24 +38,31 @@ df_vol_temp['sts'] = sts
 print('air, hts, sts 각각 개수 : 128')
 print(f'나눌 구간 개수 : {label_range}')
 print(f'128개 총 구간 개수 몫 : {128 // label_range} 나머지 : {128 % label_range}')
-print('구간별 개수')
+
+df_info = pd.DataFrame(index=['몫','나머지'], data=[128//label_range, 128%label_range], columns=[f'구간 : {label_range}'])
 
 # 구간 설정
 # 처음 [0], 마지막 [127]로 변경
+# 마지막 개수는 많아도 더 나머지를 더 추가함
 range_list = [0]
 range_list_number = []
 for i in range(label_range):
     range_list_number.append(i+1)
     range_list.append((i + 1) * (128 // label_range)-1)
 
-df_range = pd.DataFrame(data=range_list_number,columns=['구간'])
-range_list[-1] = 127
+if 128 % label_range != 0:
+    range_list.append(127)
+    range_list_number.append('나머지 구간')
 
 print(range_list)
-print(df_vol_temp['air'].value_counts(bins=range_list, sort=False))
-print(df_vol_temp['hts'].value_counts(bins=range_list, sort=False))
-print(df_vol_temp['sts'].value_counts(bins=range_list, sort=False))
 
+# 구간 dataframe
+df_range = pd.DataFrame(data=range_list_number,columns=['구간'])
+
+# 구간 나누기
+# print(df_vol_temp['air'].value_counts(bins=range_list, sort=False))
+# print(df_vol_temp['hts'].value_counts(bins=range_list, sort=False))
+# print(df_vol_temp['sts'].value_counts(bins=range_list, sort=False))
 
 # dataframe to excel
 with pd.ExcelWriter(f'{xlsx_root}\{xlsx_name}') as writer:
@@ -62,4 +72,5 @@ with pd.ExcelWriter(f'{xlsx_root}\{xlsx_name}') as writer:
     df_vol_temp['air'].value_counts(bins=range_list, sort=False).to_excel(writer, startcol=10)
     df_vol_temp['hts'].value_counts(bins=range_list, sort=False).to_excel(writer, startcol=12)
     df_vol_temp['sts'].value_counts(bins=range_list, sort=False).to_excel(writer, startcol=14)
+    df_info.to_excel(writer, startcol=18)
     df_range.to_excel(writer,startcol=16,index=False)
