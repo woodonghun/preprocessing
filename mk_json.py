@@ -2,8 +2,11 @@ import json
 
 import openpyxl
 
+'''
+    on3ds => on3d 로 변경한 landmark 를 정리한 xlsx 을 기반으로 json 파일을 생성하는 코드
+'''
 xlsx_loc = 'C:/Users/3DONS/Desktop/group_num_name_update04.xlsx'  # 정리 xlsx 경로
-create_json_loc = 'C:/Users/3DONS/Desktop/1'  # 생성할 json 파일 폴더 경로
+create_json_loc = 'C:\woo_project\preprocessing'  # 생성할 json 파일 폴더 경로
 
 
 def make_json(landmark_dict: dict, loc: str):  # json 파일 생성

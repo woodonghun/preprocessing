@@ -4,7 +4,10 @@ import openpyxl
 # json 파일 오픈, key,value 나눔
 from openpyxl.styles import Border, borders, PatternFill, Font, Alignment
 
-json_loc = r"C:\Users\3DONS\Desktop\grouping_json\on3d-on3ds-on3d\temp_group_points_preShin.json"  # 변환?정리? 할 json 파일 경로
+'''
+    on3ds to on3d 생성 xlsx
+'''
+json_loc = r"C:\woo_project\AI\on3ds_to_on3d_landmark_change.json"  # 변환?정리? 할 json 파일 경로
 on3d_xlsx = r'C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_220906(foramen 추가).xlsx'  # on3d landmark 파일 경로
 on3ds_xlsx = r'C:/Users/3DONS/Desktop/수정Dr_Cho_Analysis_ON3D_S_220906(foramen 추가).xlsx'  # on3ds landmark 파일 경로
 arrange_xlsx = r'C:\woo_project\landmark_name/group_num_name.xlsx'  # 저장할 xlsx 경로, 이름

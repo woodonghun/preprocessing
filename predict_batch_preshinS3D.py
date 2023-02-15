@@ -1,5 +1,9 @@
 import os
 
+'''
+    ON3DS landmark 추론 batch 파일 생성 코드
+'''
+
 drive_loc = 'C:'
 python_path = r'C:\Users\3DONS\Desktop\preshin3d_predict\PreShinS3D_predict\code\ON3DS_PreShinS3D'
 

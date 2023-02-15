@@ -2,6 +2,9 @@ import os
 
 import openpyxl
 
+'''
+    추론한 txt landmark 를 변환하는 코드
+'''
 xlsx_loc = r'./group_num_name_update04.xlsx'  # on3d, on3d_s 번호 정리한 xlsx
 landmark_loc = r'./temp_data'  # landmark 가 저장된 폴더
 on3d_s_landmark_loc = r'./temp_result'  # 새로운 landmark 를 저장할 폴더

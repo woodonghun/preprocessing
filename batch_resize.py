@@ -5,6 +5,7 @@ import os
 
 '''
     사용 gpu, memory, seed 주소값 등의 변동이 있는 값을 넣으면 자동을 batch 가 완성되는 코드
+    on3ds landmark 추론 용
 '''
 # 사용 가능한 메모리
 # 사용 가능 개수 = 메모리 / 2

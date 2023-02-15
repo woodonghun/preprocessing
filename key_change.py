@@ -1,6 +1,9 @@
 import json
 
-json_loc = r'C:\Users\3DONS\Downloads\sample.json'  # 읽을 json 파일 경로
+'''
+    2D landmark 변경 
+'''
+json_loc = r'C:\woo_project\preprocessing\2D.json'  # 읽을 json 파일 경로
 remake_json_loc = r'C:\Users\3DONS\Desktop\1\temp.json'  # 생성할 json 파일 경로
 landMC = {0: [0.1234, 0.1234], 1: [0.1234, 0.1234], 2: [0.1234, 0.1234], 3: [-99999, -99999], 4: [0.1234, 0.1234], 5: [-99999, -99999]
     , 6: [0.1234, 0.1234], 7: [0.1234, 0.1234], 8: [0.1234, 0.1234], 9: [0.1234, 0.1234], 10: [0.1234, 0.1234], 11: [0.1234, 0.1234]

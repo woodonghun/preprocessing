@@ -5,12 +5,14 @@ import re
 ''' 
     volume template label data 를 구간 별 개수를 나누어 xlsx 로 출력 하는 코드 
     data 범위를 0~127로 맞추기 위해 hts-128, sts-256 적용
+    구간을 나누었을 때 ex) 127 을 10 개의 구간으로 나누었을 때 몫 12개 나머지 8개가 생성된다. 
+    나머지 처리는 마지막에 구간 하나를 더 추가한다.
 '''
 
 volume_template_label_root = r'D:\Volume Template\AUG_ON3DS_VT\valid'  # 정답 데이터 루트
 xlsx_root = r'D:\Volume Template\AUG_ON3DS_VT'  # xlsx 생성 root
-xlsx_name = r'valid.xlsx'  # 엑셀 명 .xlsx 붙여야함
-label_range = 16  # 구간의 개수
+xlsx_name = r'validf.xlsx'  # 엑셀 명 .xlsx 붙여야함
+label_range = 10  # 구간의 개수
 
 id_list = os.listdir(volume_template_label_root)  # id list
 column = ['air', 'hts', 'sts']
@@ -52,7 +54,7 @@ for i in range(label_range):
 
 if 128 % label_range != 0:
     range_list.append(127)
-    range_list_number.append('나머지 구간')
+    range_list_number.append('나머지')
 
 print(range_list)
 

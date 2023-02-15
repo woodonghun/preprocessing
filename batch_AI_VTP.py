@@ -1,5 +1,9 @@
 import os
 
+'''
+    volume template 추론 batch 생성 코드
+'''
+
 file_name = 'ON3DS_VT.exe'  # 0 AI 프로그램 실행 파일   args[0]
 key = 'temp1'  # 1 프로그램 구동용 비밀키  args[1]
 result_report_path = 'temp2'  # 2 결과 리포트 파일의 경로  args[2]

@@ -2,6 +2,9 @@ import os
 
 import openpyxl
 
+'''
+    landmark 에 음수값이 몇개가 들어있는지 확인하는 코드
+'''
 xlsx_loc = r'./group_num_name_update04.xlsx'  # on3d, on3d_s 번호 정리한 xlsx
 landmark_loc = r'./temp_result/landmarks_on3d_s_final_result'  # landmark 가 저장된 폴더
 
