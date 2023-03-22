@@ -4,14 +4,14 @@ import os
     volume template 추론 batch 생성 코드
 '''
 
-file_name = 'ON3DS_VT.exe'  # 0 AI 프로그램 실행 파일   args[0]
-key = 'temp1'  # 1 프로그램 구동용 비밀키  args[1]
-result_report_path = 'temp2'  # 2 결과 리포트 파일의 경로  args[2]
-root_dir = ''  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
+file_name = 'ON3DS_VT.py'  # 0 AI 프로그램 실행 파일   args[0]
+key = '1234'  # 1 프로그램 구동용 비밀키  args[1]
+result_report_path = r'D:\Volume_Template\ON3DS_VT\result_report.dat'  # 2 결과 리포트 파일의 경로  args[2]
+root_dir = r'D:\Volume_Template\ON3DS_VT'  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
 # mha_dir = ''  # 4 추론 할 image 파일이 있는 폴더 경로           4, 5 는 코드 내에서 추가 args 사용 안함
-# mha_filename = '' # 5 추론 할 image 파일 이름 ( 파일 고유 id.mha)
-model_dir = 'temp6'  # 6 pth 파일이 있는 폴더 경로    args[4]
-output_path = 'temp7'  # 7 추론 한 예측 결과를 저장할 경로    args[5]
+mha_filename = 'image.mha'  # 5 추론 할 image 파일 이름 ( 파일 고유 id.mha)
+model_dir = r'D:\Volume_Template\ON3DS_VT\ON3DS_VT_F\weight'  # 6 pth 파일이 있는 폴더 경로    args[4]
+output_path = r'D:\Volume_Template\34_result\input,predict,label\temp'  # 7 추론 한 예측 결과를 저장할 경로    args[5]
 use_gpu = '0'  # 8 GPU 를 사용할 것 인지 정하는 옵션 ( 0 or 1 )  args[6]     # gpu 를 사용하면 cuda 는 1개만 사용, memory 사용량 확인. # cpu를 사용하면 자동으로 직렬
 
 cuda_dict = {'cuda0': 20}  # 각 cuda 사용 가능한 memory 입력, cuda 가 늘어날 경우 맞춰서 입력
@@ -21,12 +21,16 @@ ram_total_memory = 30  # 총 memory
 use_gpu_memory = 2  # predict 할때 사용 하는 gpu 메모리
 use_ram_memory = 2  # predict 할때 사용 하는 gpu 메모리
 
-mha_root = r'D:/538ons_vol_temp/export_volume_template/input'  # 추론 할 image 폴더가 모여 있는 폴더 경로
-batch_loc = r'C:\Users\3DONS\Desktop\temp_preshin'  # batch 파일을 생성할 폴더 경로
+mha_root = r'D:\Volume_Template\34_result\input,predict,label\25_id'  # 추론 할 image 폴더가 모여 있는 폴더 경로
+batch_loc = r'D:\Volume_Template\34_result\input,predict,label'  # batch 파일을 생성할 폴더 경로
 
-batch_folder_name = 'predict_batch'  # 배치 파일이 들어갈 폴더 이름
-batch_file_name = 'temp'  # 배치 파일 명
+batch_folder_name = 'VT_batch'  # 배치 파일이 들어갈 폴더 이름
+batch_file_name = 'VT_predict'  # 배치 파일 명
 
+drive_loc = 'D:'
+python_path = r'D:\Volume_Template\ON3DS_VT'
+
+env_name = 'ON3DScpu'
 ##############################################################################
 
 total_cup_memory_bat = (ram_total_memory - ram_base_memory) // use_ram_memory
@@ -54,8 +58,7 @@ def return_mha_dir_filename(root_loc: str):
 
 # 배치 파일 생성
 def make_cpu_batch(id_mha_dict: dict, root_loc: str, bat_loc: str, memory: list, *args):
-
-    total_predict = len(id_mha_dict)    # 총 predict 개수
+    total_predict = len(id_mha_dict)  # 총 predict 개수
 
     list_keys = list(id_mha_dict.keys())  # key : id
 
@@ -71,7 +74,7 @@ def make_cpu_batch(id_mha_dict: dict, root_loc: str, bat_loc: str, memory: list,
         print(f'----사용 가능 CPU Batch 개수 : {int(memory[1])}')
         # print(f'    총 predict 개수 : {total_predict}')
         memory.sort()  # sort 해서 적은수 앞으로 놓고 앞에 기준으로 bat 파일 개수 지정
-        pre_num = int(total_predict//round((memory[0]), 0))
+        pre_num = int(total_predict // round((memory[0]), 0))
         bat_num = int(round((memory[0]), 0))
         print(f'----Batch 개수가 작은 것 사용\n')
 
@@ -102,7 +105,7 @@ def make_cpu_batch(id_mha_dict: dict, root_loc: str, bat_loc: str, memory: list,
 
         for j in range(pre_num + insert_predict + rest):  # predict 개수
             with open(f'{bat_loc}/{batch_folder_name}/{batch_file_name}{i}.bat', 'a') as f:
-                f.write(f'{args[0]} {args[1]} {args[2]} {args[3]} {root_loc}/{list_keys[count]} {id_mha_dict[list_keys[count]]} {args[4]} {args[5]} {args[6]}\n')
+                f.write(f'{args[0]} {args[1]} {args[2]} {args[3]} {root_loc}\{list_keys[count]} {mha_filename} {args[4]} {args[5]}\{list_keys[count]}.txt {args[6]}\n')
             count += 1  # count 로 index 기억
 
         insert_rest_predict -= 1  # 나머지 개수 차감
@@ -112,10 +115,13 @@ def make_cpu_batch(id_mha_dict: dict, root_loc: str, bat_loc: str, memory: list,
 
 # 배치 파일 한번에 실행하는 배치 파일 제작
 def total_start_batch(bat_loc: str):
-    file_list = os.listdir(f'{bat_loc}/{batch_folder_name}')
-    with open(f'{bat_loc}/{batch_folder_name}/start_total_batch.bat', 'a') as f:
+    file_list = os.listdir(f'{bat_loc}\{batch_folder_name}')
+    with open(f'{bat_loc}\{batch_folder_name}\start_total_batch.bat', 'a') as f:
+        f.write(f"{drive_loc}\n")
+        f.write(f"cd {python_path}\n")
+        f.write(f'call conda activate {env_name}\n')
         for j in file_list:
-            f.write(f'start "{j}" "{bat_loc}/{batch_folder_name}/{j}"\n')  # 띄어쓰기, 스페이스바 확인. 하나 차이로 오류발생
+            f.write(f'start "{j}" "{bat_loc}\{batch_folder_name}\{j}"\n')  # 띄어쓰기, 스페이스바 확인. 하나 차이로 오류발생
 
 
 mha_dict = return_mha_dir_filename(mha_root)

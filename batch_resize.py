@@ -10,8 +10,8 @@ import os
 # 사용 가능한 메모리
 # 사용 가능 개수 = 메모리 / 2
 
-cuda_dict = {'cuda0': 20,    # 각 cuda 사용 가능한 memory 입력, cuda 가 늘어날 경우 맞춰서 입력
-             'cuda1': 20,
+cuda_dict = {'cuda0': 8,    # 각 cuda 사용 가능한 memory 입력, cuda 가 늘어날 경우 맞춰서 입력
+             'cuda1': 0,
              'cuda2': 0,
              }
 
@@ -21,10 +21,10 @@ seed_list = [10, 20]    # 시드 개수에 맞춰서 해당 되는 number 입력
 
 drive_loc = 'C:'  # 드라이브 위치
 change_mode = 'python train.py'  # train2.exe, python train.py 실행 하는 모드 python-exe
-create_batch_folder_loc = 'C:/Users/3DONS/Desktop/temp_batch_on3ds'  # 배치 파일 생성 경로
+create_batch_folder_loc = r'C:\woo_project\temp\temp'  # 배치 파일 생성 경로
 python_path = 'C:/Users/3DONS/Desktop/PreShin/20211007'  # 파이썬 경로
-on3d_s_group_json = 'C:/Users/3DONS/Desktop/on3ds_group_points.json'  # json 파일 경로, ( batch 파일을 적절하게 생성하기 위해서 필요)
-train_log_path = 'C:/Users/3DONS/Desktop'  # 로그 경로
+on3d_s_group_json = r'C:\woo_project\preprocessing/on3ds_group_points.json'  # json 파일 경로, ( batch 파일을 적절하게 생성하기 위해서 필요)
+train_log_path = r'C:\Users\3DONS\Desktop\PreShin\log'  # 로그 경로
 activate_env = 'tempallpk'  # 활성화 시킬 가상 환경
 
 
