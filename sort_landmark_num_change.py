@@ -3,7 +3,11 @@ import os
 import openpyxl
 
 '''
-    추론한 txt landmark 를 변환하는 코드 
+    on3d landmark 번호를 on3ds landmark 번호로 교체하는 코드
+    group_num_name_update04.xlsx 파일 필요함
+    
+    이 작업은 exporter - Volume on3d to on3ds landmark picking 작업으로 data를 export 한 뒤  
+    on3ds 를 train 할 때 landmark 번호를 변경할 때 사용함
 '''
 xlsx_loc = r'./group_num_name_update04.xlsx'  # on3d, on3d_s 번호 정리한 xlsx
 landmark_loc = r'D:\ons\on3ds-to-on3d_landmarks\on3ds_landmark\exporter_landmarks'  # landmark 가 저장된 폴더
@@ -16,7 +20,6 @@ landmarks_on3d_s 폴더는 단순히 번호만 변환한 것
 landmarks_on3d_s_final_result 에서는 번호 변환 및 , 중복 제거 ------- 중복의 의미가 기존에 input 의 중복이 사라지는 것이 아닌 변환 과정중 생성된 중복이 지워지는것
 on3d -> on3ds 변환 과정중 없는 landmark 는 -99999.00 으로 변환
 중복 번호는 landmark 좌표가 있는 번호를 남겨 두고 -99999만 제거 ( landmark 좌표가 같이 겹치는 게 생길 경우에는 exporter 에서 landmark 좌표를 잘못 입력)
-
 현재 결측치가 -99999 일지 -99999.00 일지 정확하게 정해진 것이 없어서 -99999 가 들어가 있을경우 인식하는 것 으로 결정
 즉 -99999.00 으로 들어오면 -99999 로 출력
 '''

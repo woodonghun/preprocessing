@@ -1,16 +1,16 @@
 import os
 
 '''
-    volume template 추론 batch 생성 코드
+    volume template predict batch 생성 코드
 '''
 
 file_name = 'ON3DS_VT.py'  # 0 AI 프로그램 실행 파일   args[0]
 key = '1234'  # 1 프로그램 구동용 비밀키  args[1]
-result_report_path = r'D:\Volume_Template\ON3DS_VT\result_report.dat'  # 2 결과 리포트 파일의 경로  args[2]
-root_dir = r'D:\Volume_Template\ON3DS_VT'  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
+result_report_path = r'D:\Volume_Template\ON3DS_env,code\ON3DS_VT\result_report.dat'  # 2 결과 리포트 파일의 경로  args[2]
+root_dir = r'D:\Volume_Template\ON3DS_env,code\ON3DS_VT'  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
 # mha_dir = ''  # 4 추론 할 image 파일이 있는 폴더 경로           4, 5 는 코드 내에서 추가 args 사용 안함
 mha_filename = 'image.mha'  # 5 추론 할 image 파일 이름 ( 파일 고유 id.mha)
-model_dir = r'D:\Volume_Template\ON3DS_VT\ON3DS_VT_F\weight'  # 6 pth 파일이 있는 폴더 경로    args[4]
+model_dir = r'D:\Volume_Template\ON3DS_env,code\ON3DS_VT\ON3DS_VT_F\weight'  # 6 pth 파일이 있는 폴더 경로    args[4]
 output_path = r'D:\Volume_Template\34_result\input,predict,label\temp'  # 7 추론 한 예측 결과를 저장할 경로    args[5]
 use_gpu = '0'  # 8 GPU 를 사용할 것 인지 정하는 옵션 ( 0 or 1 )  args[6]     # gpu 를 사용하면 cuda 는 1개만 사용, memory 사용량 확인. # cpu를 사용하면 자동으로 직렬
 
@@ -28,7 +28,7 @@ batch_folder_name = 'VT_batch'  # 배치 파일이 들어갈 폴더 이름
 batch_file_name = 'VT_predict'  # 배치 파일 명
 
 drive_loc = 'D:'
-python_path = r'D:\Volume_Template\ON3DS_VT'
+python_path = r'D:\Volume_Template\ON3DS_env,code\ON3DS_VT'
 
 env_name = 'ON3DScpu'
 ##############################################################################
