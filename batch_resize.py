@@ -28,14 +28,14 @@ resize_seed_list = [10, 20]
 
 # 추가되는 resize group 의 seed 번호 입력 기존 번호는 입력하면 안됨. group 명은 학습에 적용되는 group 명으로 정확히 입력 해야함.
 # 정확히 입력되지 않으면 학습되지 않음.
-add_resize_seed = {'Soft_Tissue_3': 30}
+add_resize_seed = {}    # {'Soft_Tissue_3' : 30}
 
 drive_loc = 'C:'  # 드라이브 위치
 change_mode = 'python train.py'  # train2.exe, python train.py 실행 하는 모드 python-exe
-create_batch_folder_loc = r'C:\woo_project\temp\temp'  # 배치 파일 생성 폴더 경로
+create_batch_folder_loc = r'D:\temp\temp'  # 배치 파일 생성 폴더 경로
 python_path = 'C:/Users/3DONS/Desktop/PreShin/20211007'  # 파이썬 파일이 들어 있는 폴더 경로
 on3d_s_group_json = r'C:\woo_project\preprocessing/on3ds_group_points.json'  # json 파일 경로, ( batch 파일을 적절하게 생성하기 위해서 필요)
-train_log_path = r'C:\Users\3DONS\Desktop\PreShin\log'  # 로그 폴더 경로
+train_log_path = r'D:\ons-538\log'  # 로그 폴더 경로
 activate_env = 'tempallpk'  # 활성화 시킬 가상 환경
 
 
@@ -72,7 +72,8 @@ def cuda(drive: str, mode: str, env: str, cuda_num: int, cuda_memory: int, g_poi
 
                         else:
                             f.write(
-                                f"{mode} --tag {g_name[math.floor(g_count / len(resize_seed_list))]}_seed_{resize_seed_list[n]} --p {g_points[math.floor(g_count / len(resize_seed_list))]} "
+                                f"{mode} --tag {g_name[math.floor(g_count / len(resize_seed_list))]} --p {g_points[math.floor(g_count / len(resize_seed_list))]} "
+                                # f"{mode} --tag {g_name[math.floor(g_count / len(resize_seed_list))]}_seed_{resize_seed_list[n]} --p {g_points[math.floor(g_count / len(resize_seed_list))]} "
                                 f"--seed {resize_seed_list[n]} --cuda_id {cuda_num} --resize > "
                                 f"{train_log_path}/resize/{g_name[math.floor(g_count / len(resize_seed_list))]}_seed_{resize_seed_list[n]}_cuda_{cuda_num}.txt\n")  # 한 줄
                             g_count += 1
@@ -142,7 +143,7 @@ if list(add_resize_seed.keys()):  # 추가되는 resize seed 가 있으면 추�
         with open(f"{create_batch_folder_loc}/cuda0/0_cuda_0.bat", 'w') as a:
             for line in lines:
                 a.write(line)
-print(lines)
+# print(lines)
 
 for key in cuda_dict.keys():  # 전체 batch 파일 실행 batch 파일 제작
     file_list = os.listdir(f'{create_batch_folder_loc}/{key}')
