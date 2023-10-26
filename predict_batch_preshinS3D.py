@@ -5,19 +5,19 @@ import os
 '''
 
 drive_loc = 'C:'
-python_path = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\predict'
+python_path = r'C:\Users\3DONS\Desktop\train_predict_code\ON3DS_3D_predict_code'
 
 file_name = r'ON3DS_PreShinS3D.py'  # 0 AI 프로그램 실행 파일   args[0]
 key = '94jkl4#56*f#'  # 1 프로그램 구동용 비밀키 아무거나 넣어도됨  args[1]
-result_report_path = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\predict\ON3DS_PreShinS3D_result_report.dat'  # 2 결과 리포트 파일의 경로  args[2]
-root_dir = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\predict\ON3DS_PreShinS3D_F'  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
+result_report_path = r'C:\Users\3DONS\Desktop\train_predict_code\ON3DS_3D_predict_code\ON3DS_PreShinS3D_result_report.dat'  # 2 결과 리포트 파일의 경로  args[2]
+root_dir = r'C:\Users\3DONS\Desktop\train_predict_code\ON3DS_3D_predict_code'  # 3 "/ON3DS/AI 폴더의 절대 경로"    args[3]
 # mhd_dir = 'temp6'  # 4 추론 할 image 파일이 있는 폴더 경로                4,5 번 은 코드 내에서 추가
 # mhd_filename = 'temp7'  # 5 추론 한 예측 결과를 저장할 경로
-model_dir = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\predict\ON3DS_PreShinS3D_F\weight'  # 6 pth 파일이 있는 폴더 경로 args[4]
-output_path = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\temp'  # 7 추론 한 예측결과를 저장할 경로 args[5]
+model_dir = r'C:\Users\3DONS\Desktop\train_predict_code\ON3DS_3D_predict_code\ON3DS_PreShinS3D_F\weight'  # 6 pth 파일이 있는 폴더 경로 args[4]
+output_path = r'C:\20230703_ON3DS\predict'  # 7 추론 한 예측결과를 저장할 경로 args[5]
 points = '17,18,19,15,16,30,31,21,20,23,22,144,145,34,24,25,26,27,28,29,32,33,142,143,36,37,65,66,52,53,91,92,38,39,67,68,54,55,93,94,70,71,40,41,95,96,56,57,73,74,76,' \
          '77,97,98,99,100,43,44,78,79,58,59,101,102,45,46,80,81,60,61,103,104,83,84,47,48,105,106,62,63,86,87,89,90,107,108,109,110,69,72,42,75,82,85,49,88,140,141,' \
-         '120,123,124,121,122,125,126,129,130,35,127,128,131,132,139,137,138,134,133,135,136'  # 8 추론할 랜드마크  args[6]
+         '120,123,124,121,122,125,126,129,35,51,127,128,131,132,139,130,137,138,134,133,135,136'  # 8 추론할 랜드마크  args[6]
 overwrite_cache = 'True'  # 9 caching 파일을 덮어쓰기 하는 옵션(무조건 True)  args[7]
 use_gpu = 'False'  # 10 GPU 를 사용할 것 인지 정하는 옵션 (무조건 False)  args[8]
 cuda_id = '0'  # 11 멀티 cuda GPU 사용을 가정하고 GPU선택 (무조건 0)  args[9]
@@ -25,15 +25,15 @@ use_gold_resize = 'False'  # 12 분석이 끝나지 않는 인자 (무조건 Fal
 test = 'False'  # 13 test 모드를 쓸것인가 선택하는 모드 (무조건 False)  args[11]
 
 # gpu 만 사용하면 cpu 수정 안해도 무관
-cuda_dict = {'cuda0': 11}  # 각 cuda 사용 가능한 memory 입력, cuda 가 늘어날 경우 맞춰서 입력
+cuda_dict = {'cuda0': 4}  # 각 cuda 사용 가능한 memory 입력, cuda 가 늘어날 경우 맞춰서 입력
 cpu_base_memory = 7  # 기본적으로 사용하고 있는 memory
 cpu_total_memory = 14  # 총 memory
 
 use_gpu_memory = 2  # predict 할때 사용 하는 gpu 메모리
 use_cpu_memory = 2  # predict 할때 사용 하는 cpu 메모리
 
-mhd_root = r'C:\Users\3DONS\Desktop\temp_valid'  # 추론 할 image 폴더가 모여 있는 폴더 경로
-batch_loc = r'C:\Users\3DONS\Desktop\ON3DS_3D_predict_code\temp_batch'  # batch 파일을 생성할 폴더 경로
+mhd_root = r"C:\20230703_ON3DS\image"  # 추론 할 image 폴더가 모여 있는 폴더 경로
+batch_loc = r'C:\20230703_ON3DS'  # batch 파일을 생성할 폴더 경로
 
 batch_folder_name = 'valid_train'  # 배치 파일이 들어갈 폴더 이름
 batch_file_name = 'temp'  # 배치 파일 명

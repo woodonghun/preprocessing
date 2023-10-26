@@ -9,9 +9,9 @@ import openpyxl
     이 작업은 exporter - Volume on3d to on3ds landmark picking 작업으로 data를 export 한 뒤  
     on3ds 를 train 할 때 landmark 번호를 변경할 때 사용함
 '''
-xlsx_loc = r'./group_num_name_update04.xlsx'  # on3d, on3d_s 번호 정리한 xlsx
-landmark_loc = r'D:\ons\on3ds-to-on3d_landmarks\on3ds_landmark\exporter_landmarks'  # landmark 가 저장된 폴더
-on3d_s_landmark_loc = r'D:\ons\on3ds-to-on3d_landmarks\on3ds_landmark'  # 새로운 landmark 를 저장할 폴더
+xlsx_loc = r'\\192.168.0.42\share\temp\WOO_code\python landmark num change/group_num_name_update05.xlsx'  # on3d, on3d_s 번호 정리한 xlsx
+landmark_loc = r'D:\AI 성능측정\20230703_ON3DS\landmarks'  # landmark 가 저장된 폴더
+on3d_s_landmark_loc = r'D:\AI 성능측정\20230703_ON3DS'  # 새로운 landmark 를 저장할 폴더
 '''
 input data 는 중복된 번호가 없어야 실행 가능하다. (-22.11.15 on3d 70번 landmark 확인)
 landmarks_on3d_s_final_result 사용하면 됨
@@ -29,7 +29,7 @@ os.mkdir(f'{on3d_s_landmark_loc}/landmarks_on3d_s_final_result')
 file_list = os.listdir(landmark_loc)  # landmark 폴더의 txt 파일 리스트
 
 wb = openpyxl.load_workbook(xlsx_loc)
-ws = wb['정리']
+ws = wb['Sheet1']
 
 on3d_s_num = []
 on3d_s_landmark = []
@@ -41,6 +41,7 @@ for column in range(4, 124):  # 정리된 xlsx 에서 landmark 값 가지고 옴
     on3d_s_landmark.append(ws[f'C{column}'].value)
     on3d_num.append(str(ws[f'F{column}'].value))
     on3d_landmark.append(ws[f'G{column}'].value)
+    print(ws[f'C{column}'].value, ws[f'G{column}'].value)
 
 on3d = dict(zip(on3d_landmark, on3d_num))  # key : landmark_name, value : landmark_number
 on3d_s = dict(zip(on3d_s_landmark, on3d_s_num))  # dict 완성, 동일한 key 값이 있으면 자동 으로 제거됨
@@ -50,7 +51,7 @@ new_landmark = []
 new_landmark_list = []
 not_use = []
 count = 1
-
+print(on3d_s)
 for j in range(len(file_list)):
     # txt 읽고 변환
     with open(f"{landmark_loc}/{file_list[j]}", "r") as f:  # txt 읽기
